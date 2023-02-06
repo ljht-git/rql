@@ -296,7 +296,7 @@ func (p *Parser) parseField(sf reflect.StructField) error {
 		filterOps = append(filterOps, EQ, NEQ)
 	case reflect.String:
 		f.ValidateFn = validateString
-		filterOps = append(filterOps, EQ, NEQ, LT, LTE, GT, GTE, LIKE)
+		filterOps = append(filterOps, EQ, NEQ, LT, LTE, GT, GTE, LIKE, IN)
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		f.ValidateFn = validateInt
 		f.CovertFn = convertInt
@@ -529,10 +529,13 @@ func validateBool(v interface{}) error {
 
 // validate that the underlined element of given interface is a string.
 func validateString(v interface{}) error {
-	if _, ok := v.(string); !ok {
-		return errorType(v, "string")
+	if _, ok := v.(string); ok {
+		return nil
 	}
-	return nil
+	if _, ok := v.([]string); ok {
+		return nil
+	}
+	return errorType(v, "string")
 }
 
 // validate that the underlined element of given interface is a float.
