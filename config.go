@@ -23,6 +23,7 @@ const (
 	LTE  = Op("lte")  // <=
 	GTE  = Op("gte")  // >=
 	LIKE = Op("like") // LIKE "PATTERN"
+	IN   = Op("in")   // IN "PATTERN"
 	OR   = Op("or")   // disjunction
 	AND  = Op("and")  // conjunction
 )
@@ -55,6 +56,7 @@ var (
 		LTE:  "<=",
 		GTE:  ">=",
 		LIKE: "LIKE",
+		IN:   "IN",
 		OR:   "OR",
 		AND:  "AND",
 	}
